@@ -14,6 +14,9 @@ class Stefan {
 private:
 	graphics::Texture texture;
 	graphics::Sprite sprite;
+
+	sf::Vector2f velocity;
+	sf::Vector2f accuracy;
 public:
 	Stefan();
 
