@@ -151,10 +151,12 @@
     <ClCompile Include="src\graphics\Sprite.cpp" />
     <ClCompile Include="src\graphics\Texture.cpp" />
     <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="src\window\WindowInstance.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\graphics\Sprite.h" />
     <ClInclude Include="include\graphics\Texture.h" />
+    <ClInclude Include="include\window\WindowInstance.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets" />
