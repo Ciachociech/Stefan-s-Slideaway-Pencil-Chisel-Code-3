@@ -30,6 +30,7 @@ int WindowInstance::loop() {
         }
 
         stage.processInput(keyboardInput, joystickInput);
+        stage.update();
 
         this->window.clear();
         stage.render(&this->window);

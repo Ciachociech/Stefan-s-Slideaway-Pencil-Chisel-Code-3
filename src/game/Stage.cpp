@@ -31,6 +31,7 @@ void Stage::processInput(const std::vector<window::PressedKey>& keyboardInput, c
 }
 
 void Stage::update() {
+	stefan.update();
 }
 
 void Stage::render(sf::RenderWindow* window) {
