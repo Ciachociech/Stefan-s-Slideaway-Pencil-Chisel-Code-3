@@ -25,6 +25,23 @@ void Stefan::processInput(const std::vector<window::PressedKey>& keyboardInput, 
 	}
 }
 
+void Stefan::update() {
+	const sf::FloatRect movementRect = sf::FloatRect(32, 0, 288, 120);
+	const sf::Vector2f actualPosition = this->sprite.getSprite().getPosition();
+	const sf::Vector2u textureSize = this->sprite.getSprite().getTexture()->getSize();
+	if (actualPosition.x < movementRect.left) {
+		this->sprite.setPosition(sf::Vector2f(movementRect.left, actualPosition.y));
+	} else if (actualPosition.x > movementRect.left + movementRect.width - textureSize.x) {
+		this->sprite.setPosition(sf::Vector2f(movementRect.left + movementRect.width - textureSize.x, actualPosition.y));
+	}
+	if (actualPosition.y < movementRect.top) {
+		this->sprite.setPosition(sf::Vector2f(actualPosition.x, movementRect.top));
+	}
+	else if (actualPosition.y > movementRect.top + movementRect.height - textureSize.y) {
+		this->sprite.setPosition(sf::Vector2f(actualPosition.x, movementRect.top + movementRect.height - textureSize.y));
+	}
+}
+
 void Stefan::render(sf::RenderWindow* window) {
 	window->draw(this->sprite.getSprite());
 }

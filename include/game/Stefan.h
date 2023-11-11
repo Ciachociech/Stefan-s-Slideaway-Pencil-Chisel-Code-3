@@ -18,6 +18,7 @@ public:
 	Stefan();
 
 	void processInput(const std::vector<window::PressedKey>& keyboardInput, const std::vector<window::PressedButton>& joystickInput);
+	void update();
 
 	void render(sf::RenderWindow* window);
 };
