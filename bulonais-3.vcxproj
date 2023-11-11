@@ -148,11 +148,13 @@
     </ProjectReference>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="include\Texture.cpp" />
+    <ClCompile Include="src\graphics\Sprite.cpp" />
+    <ClCompile Include="src\graphics\Texture.cpp" />
     <ClCompile Include="src\main.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="include\Texture.h" />
+    <ClInclude Include="include\graphics\Sprite.h" />
+    <ClInclude Include="include\graphics\Texture.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets" />
