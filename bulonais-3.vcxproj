@@ -73,6 +73,9 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <IncludePath>include/;$(IncludePath)</IncludePath>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <IncludePath>include/;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
+  </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
@@ -151,11 +154,15 @@
     <ClCompile Include="src\graphics\Sprite.cpp" />
     <ClCompile Include="src\graphics\Texture.cpp" />
     <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="src\window\JoystickInput.cpp" />
+    <ClCompile Include="src\window\KeyboardInput.cpp" />
     <ClCompile Include="src\window\WindowInstance.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\graphics\Sprite.h" />
     <ClInclude Include="include\graphics\Texture.h" />
+    <ClInclude Include="include\window\JoystickInput.h" />
+    <ClInclude Include="include\window\KeyboardInput.h" />
     <ClInclude Include="include\window\WindowInstance.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
