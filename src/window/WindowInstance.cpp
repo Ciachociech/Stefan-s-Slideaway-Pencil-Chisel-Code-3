@@ -1,6 +1,6 @@
 #include <window/WindowInstance.h>
 
-#include <algorithm>
+#include <game/Stefan.h>
 
 #include <graphics/Sprite.h>
 #include <graphics/Texture.h>
@@ -10,9 +10,7 @@ namespace window {
 WindowInstance::WindowInstance(int width, int height, std::string name) : window(sf::VideoMode(width, height), name) {}
 
 int WindowInstance::loop() {
-    graphics::Texture stefanTexture = graphics::Texture("assets/sprites/bulonais.png");
-    graphics::Sprite stefanSprite = graphics::Sprite();
-    stefanSprite.setTexture(stefanTexture.getTexture());
+    game::Stefan stefan;
 
     while (this->window.isOpen())
     {
@@ -33,12 +31,10 @@ int WindowInstance::loop() {
             }
         }
 
-        if (std::find(keyboardInput.begin(), keyboardInput.end(), PressedKey::down) != keyboardInput.end() || std::find(joystickInput.begin(), joystickInput.end(), PressedButton::down) != joystickInput.end()) {
-            stefanSprite.move(sf::Vector2f(0, 2));
-        }
+        stefan.processInput(keyboardInput, joystickInput);
 
         this->window.clear();
-        this->window.draw(stefanSprite.getSprite());
+        stefan.render(&this->window);
         this->window.display();
     }
 
