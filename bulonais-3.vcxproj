@@ -151,6 +151,7 @@
     </ProjectReference>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\game\Stefan.cpp" />
     <ClCompile Include="src\graphics\Sprite.cpp" />
     <ClCompile Include="src\graphics\Texture.cpp" />
     <ClCompile Include="src\main.cpp" />
@@ -159,6 +160,7 @@
     <ClCompile Include="src\window\WindowInstance.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="include\game\Stefan.h" />
     <ClInclude Include="include\graphics\Sprite.h" />
     <ClInclude Include="include\graphics\Texture.h" />
     <ClInclude Include="include\window\JoystickInput.h" />
