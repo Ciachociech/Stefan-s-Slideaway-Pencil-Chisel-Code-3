@@ -5,6 +5,7 @@
 
 #include <SFML/Graphics.hpp>
 
+#include <game/Stage.h>
 #include <window/JoystickInput.h>
 #include <window/KeyboardInput.h>
 
@@ -16,6 +17,8 @@ private:
 
 	//JoystickInput joystick;	// TODO: fix
 	KeyboardInput keyboard;
+
+	game::Stage stage;
 public:
 	WindowInstance(int width, int height, std::string name);
 
