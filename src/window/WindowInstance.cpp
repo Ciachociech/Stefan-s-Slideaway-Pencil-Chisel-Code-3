@@ -7,11 +7,9 @@
 
 namespace window {
 	
-WindowInstance::WindowInstance(int width, int height, std::string name) : window(sf::VideoMode(width, height), name) {}
+WindowInstance::WindowInstance(int width, int height, std::string name) : window(sf::VideoMode(width, height), name), stage() {}
 
 int WindowInstance::loop() {
-    game::Stefan stefan;
-
     while (this->window.isOpen())
     {
         std::vector<PressedKey> keyboardInput;
@@ -31,10 +29,10 @@ int WindowInstance::loop() {
             }
         }
 
-        stefan.processInput(keyboardInput, joystickInput);
+        stage.processInput(keyboardInput, joystickInput);
 
         this->window.clear();
-        stefan.render(&this->window);
+        stage.render(&this->window);
         this->window.display();
     }
 
