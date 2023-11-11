@@ -13,10 +13,30 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Pliki nagłówkowe\graphics">
+      <UniqueIdentifier>{76c003a6-9144-405f-a429-be700ad7ce3b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Pliki źródłowe\graphics">
+      <UniqueIdentifier>{64d53bb5-ad26-43fb-85d6-4be0f41af7b1}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\main.cpp">
       <Filter>Pliki źródłowe</Filter>
     </ClCompile>
+    <ClCompile Include="src\graphics\Texture.cpp">
+      <Filter>Pliki źródłowe\graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="src\graphics\Sprite.cpp">
+      <Filter>Pliki źródłowe\graphics</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="include\graphics\Texture.h">
+      <Filter>Pliki nagłówkowe\graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="include\graphics\Sprite.h">
+      <Filter>Pliki nagłówkowe\graphics</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

@@ -1,10 +1,16 @@
 #include <SFML/Graphics.hpp>
 
+#include <graphics/Sprite.h>
+#include <graphics/Texture.h>
+
 int main()
 {
-    sf::RenderWindow window(sf::VideoMode(200, 200), "SFML works!");
-    sf::CircleShape shape(100.f);
-    shape.setFillColor(sf::Color::Green);
+    sf::RenderWindow window(sf::VideoMode(176, 360), "SFML works!");
+    window.setFramerateLimit(60);
+
+    graphics::Texture stefanTexture = graphics::Texture("assets/sprites/bulonais.png");
+    graphics::Sprite stefanSprite = graphics::Sprite();
+    stefanSprite.setTexture(stefanTexture.getTexture());
 
     while (window.isOpen())
     {
@@ -16,7 +22,7 @@ int main()
         }
 
         window.clear();
-        window.draw(shape);
+        window.draw(stefanSprite.getSprite());
         window.display();
     }
 
