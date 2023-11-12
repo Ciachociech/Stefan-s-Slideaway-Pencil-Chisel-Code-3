@@ -71,7 +71,7 @@ void Stage::generateBoxWave() {
 	}
 }
 
-Stage::Stage() : stableSprites(), stefan(), frameCounter(0), font() {
+Stage::Stage() : stableSprites(), stefan(), frameCounter(0), font(), sound() {
 	this->loadTextures();
 
 	this->addSprite("stage", "assets/sprites/stage.png", sf::Vector2f(100.f, 0.f), 0.f, sf::Vector2f(2.f, 2.f));
@@ -98,11 +98,23 @@ Stage::Stage() : stableSprites(), stefan(), frameCounter(0), font() {
 	this->texts[this->texts.size() - 1].setCharacterSize(96);
 	this->addText("gameoverAddText1", "press any button", sf::Vector2f(478.f, 344.f));
 	this->addText("gameoverAddText2", "to quit the game", sf::Vector2f(483.f, 400.f));
+
+	this->bufferJump.loadFromFile("assets/audio/jump.wav");
+	this->bufferHit.loadFromFile("assets/audio/hit.wav");
+	this->bufferOption.loadFromFile("assets/audio/option.wav");
 }
 
 void Stage::processInput(const std::vector<window::PressedKey>& keyboardInput, const std::vector<window::PressedButton>& joystickInput) {
 	stefan.processInput(keyboardInput, joystickInput);
-	if (this->stefan.getHealth() <= 0 && keyboardInput.size() != 0) { this->readyToQuit = true; }
+	if (this->stefan.getHealth() > 0 && this->stefan.getHeight() == 0 && std::find_if(keyboardInput.begin(), keyboardInput.end(), [](const auto& input) { return input == window::PressedKey::space; }) != keyboardInput.end()) {
+		this->sound.setBuffer(this->bufferJump);
+		this->sound.play();
+	}
+	if (this->stefan.getHealth() <= 0 && keyboardInput.size() != 0) { 
+		this->sound.setBuffer(this->bufferOption);
+		this->sound.play();
+		this->readyToQuit = true; return; 
+	}
 }
 
 bool Stage::update() {
@@ -134,6 +146,8 @@ bool Stage::update() {
 				box.damage(); 
 			}
 			if (intersectHeight) {
+				this->sound.setBuffer(this->bufferHit);
+				this->sound.play();
 				stefan.damage(1);
 				box.damage();
 				if (box.getType() != BoxType::passUp) { 

@@ -4,6 +4,9 @@
 #include <string>
 #include <vector>
 
+#include <SFML/Audio.hpp>
+#include <SFML/Graphics.hpp>
+
 #include <graphics/Sprite.h>
 #include <graphics/Text.h>
 #include <graphics/Texture.h>
@@ -18,6 +21,9 @@ private:
 	std::vector<graphics::Texture> textures;
 	std::vector<graphics::Text> texts;
 	sf::Font font;
+
+	sf::SoundBuffer bufferOption;
+	sf::Sound sound;
 
 	int frameCounter;
 	bool readyToQuit = false;
