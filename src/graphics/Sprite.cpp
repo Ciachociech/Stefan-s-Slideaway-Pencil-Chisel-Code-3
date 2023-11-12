@@ -47,6 +47,11 @@ void Sprite::scale(const sf::Vector2f factor) {
 	this->sprite.scale(factor);
 }
 
+void Sprite::setOriginCenter() {
+	const auto bounds = this->sprite.getLocalBounds().getSize();
+	this->sprite.setOrigin(sf::Vector2f(bounds.x / 2, bounds.y / 2));
+}
+
 const sf::Sprite& Sprite::getSprite() {
 	return this->sprite;
 }

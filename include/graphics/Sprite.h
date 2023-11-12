@@ -21,6 +21,7 @@ public:
 	void rotate(const float offset);
 	void setScale(const sf::Vector2f scale);
 	void scale(const sf::Vector2f factor);
+	void setOriginCenter();
 
 	const sf::Sprite& getSprite();
 };

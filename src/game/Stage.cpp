@@ -39,6 +39,8 @@ void Stage::processInput(const std::vector<window::PressedKey>& keyboardInput, c
 
 void Stage::update() {
 	stefan.update();
+
+	this->boxes.erase(std::remove_if(this->boxes.begin(), this->boxes.end(), [](Box& box) { return box.readyToClean(); }), this->boxes.end());
 	for (auto& box : this->boxes) {
 		box.update(1.0);
 	}

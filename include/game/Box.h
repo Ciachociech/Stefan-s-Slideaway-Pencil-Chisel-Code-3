@@ -23,6 +23,7 @@ public:
 	void render(sf::RenderWindow* window);
 
 	const BoxType& getType();
+	const bool readyToClean();
 };
 
 }
