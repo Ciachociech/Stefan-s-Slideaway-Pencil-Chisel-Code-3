@@ -7,7 +7,11 @@
 
 namespace window {
 	
-WindowInstance::WindowInstance(int width, int height, std::string name) : window(sf::VideoMode(width, height), name), stage(), state(ProgramState::titlescreen), titlescreen() {}
+WindowInstance::WindowInstance(int width, int height, std::string name) : window(sf::VideoMode(width, height), name), stage(), state(ProgramState::titlescreen), titlescreen() {
+    sf::Image icon;
+    icon.loadFromFile("assets/sprites/stefan-head2.png");
+    this->window.setIcon(32, 32, icon.getPixelsPtr());
+}
 
 int WindowInstance::loop() {
     while (this->window.isOpen())
