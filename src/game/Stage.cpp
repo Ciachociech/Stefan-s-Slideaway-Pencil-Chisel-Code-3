@@ -17,23 +17,13 @@ void Stage::loadTextures() {
 }
 
 float Stage::countStageSpeed() {
-	if (this->frameCounter < 900) { return 0.5f; }
-	if (this->frameCounter < 1800) { return 0.6f; }
-	if (this->frameCounter < 2700) { return 0.7f; }
-	if (this->frameCounter < 3600) { return 0.8f; }
-	if (this->frameCounter < 4500) { return 0.9f; }
-	if (this->frameCounter < 5400) { return 1.0f; }
-	if (this->frameCounter < 6000) { return 1.1f; }
-	if (this->frameCounter < 6600) { return 1.2f; }
-	if (this->frameCounter < 7200) { return 1.3f; }
-	if (this->frameCounter < 7800) { return 1.4f; }
-	if (this->frameCounter < 8400) { return 1.5f; }
-	if (this->frameCounter < 9000) { return 1.6f; }
-	if (this->frameCounter < 9600) { return 1.7f; }
-	if (this->frameCounter < 10200) { return 1.8f; }
-	if (this->frameCounter < 10800) { return 1.9f; }
-
-	return 2.0f;
+	if (this->frameCounter < 1200) { return 0.7f; }
+	if (this->frameCounter < 2100) { return 0.8f; }
+	if (this->frameCounter < 3000) { return 0.9f; }
+	if (this->frameCounter < 3900) { return 1.0f; }
+	if (this->frameCounter < 4800) { return 1.1f; }
+	
+	return 1.2f + 0.1f * static_cast<int>((this->frameCounter - 4800) / 600);
 }
 
 void Stage::generateBoxWave() {
@@ -44,15 +34,15 @@ void Stage::generateBoxWave() {
 		auto lane = rand() % availableLanes.size();
 		switch (availableLanes[lane]) {
 			case BoxLane::left: {
-				x = 4.f;
+				x = 104.f;
 				break;
 			}
 			case BoxLane::middle: default: {
-				x = 128.f;
+				x = 228.f;
 				break;
 			}
 			case BoxLane::right: {
-				x = 224.f;
+				x = 324.f;
 				break;
 			}
 		}
@@ -79,21 +69,28 @@ void Stage::generateBoxWave() {
 	}
 }
 
-Stage::Stage() : stableSprites(), stefan(), frameCounter(0) {
+Stage::Stage() : stableSprites(), stefan(), frameCounter(0), font() {
 	this->loadTextures();
 
-	this->addSprite("assets/sprites/stage.png", sf::Vector2f(0.f, 0.f), 0.f, sf::Vector2f(2.f, 2.f));
-	this->addSprite("assets/sprites/apple.png", sf::Vector2f(400.f, 200.f), 0.f, sf::Vector2f(1.f, 1.f));
-	this->addSprite("assets/sprites/apple.png", sf::Vector2f(400.f, 240.f), 0.f, sf::Vector2f(1.f, 1.f));
-	this->addSprite("assets/sprites/apple.png", sf::Vector2f(400.f, 280.f), 0.f, sf::Vector2f(1.f, 1.f));
-	this->addSprite("assets/sprites/carrot.png", sf::Vector2f(440.f, 200.f), 0.f, sf::Vector2f(1.f, 1.f));
-	this->addSprite("assets/sprites/carrot.png", sf::Vector2f(440.f, 240.f), 0.f, sf::Vector2f(1.f, 1.f));
-	this->addSprite("assets/sprites/carrot.png", sf::Vector2f(440.f, 280.f), 0.f, sf::Vector2f(1.f, 1.f));
-	this->addSprite("assets/sprites/cauliflower.png", sf::Vector2f(480.f, 200.f), 0.f, sf::Vector2f(1.f, 1.f));
-	this->addSprite("assets/sprites/cauliflower.png", sf::Vector2f(480.f, 240.f), 0.f, sf::Vector2f(1.f, 1.f));
-	this->addSprite("assets/sprites/cauliflower.png", sf::Vector2f(480.f, 280.f), 0.f, sf::Vector2f(1.f, 1.f));
+	this->addSprite("assets/sprites/stage.png", sf::Vector2f(100.f, 0.f), 0.f, sf::Vector2f(2.f, 2.f));
+	this->addSprite("assets/sprites/apple.png", sf::Vector2f(500.f, 200.f), 0.f, sf::Vector2f(1.f, 1.f));
+	this->addSprite("assets/sprites/apple.png", sf::Vector2f(500.f, 240.f), 0.f, sf::Vector2f(1.f, 1.f));
+	this->addSprite("assets/sprites/apple.png", sf::Vector2f(500.f, 280.f), 0.f, sf::Vector2f(1.f, 1.f));
+	this->addSprite("assets/sprites/carrot.png", sf::Vector2f(540.f, 200.f), 0.f, sf::Vector2f(1.f, 1.f));
+	this->addSprite("assets/sprites/carrot.png", sf::Vector2f(540.f, 240.f), 0.f, sf::Vector2f(1.f, 1.f));
+	this->addSprite("assets/sprites/carrot.png", sf::Vector2f(540.f, 280.f), 0.f, sf::Vector2f(1.f, 1.f));
+	this->addSprite("assets/sprites/cauliflower.png", sf::Vector2f(580.f, 200.f), 0.f, sf::Vector2f(1.f, 1.f));
+	this->addSprite("assets/sprites/cauliflower.png", sf::Vector2f(580.f, 240.f), 0.f, sf::Vector2f(1.f, 1.f));
+	this->addSprite("assets/sprites/cauliflower.png", sf::Vector2f(580.f, 280.f), 0.f, sf::Vector2f(1.f, 1.f));
 
 	srand(time(NULL));
+
+	this->font.loadFromFile("assets/fonts/NerkoOne-Regular.ttf");
+	this->addText("test", "HELLO WORLD!", sf::Vector2f(600.f, 200.f));
+	this->addText("scoreTitle", "Score:", sf::Vector2f(552.f, 8.f));
+	this->addText("scoreValue", "0", sf::Vector2f(552.f, 64.f));
+	this->addText("healthTitle", "Lifes:", sf::Vector2f(1010.f, 8.f));
+	this->addText("powerUp", "Power-up: none", sf::Vector2f(552.f, 120.f));
 }
 
 void Stage::processInput(const std::vector<window::PressedKey>& keyboardInput, const std::vector<window::PressedButton>& joystickInput) {
@@ -137,11 +134,22 @@ void Stage::update() {
 
 	this->boxes.erase(std::remove_if(this->boxes.begin(), this->boxes.end(), [](Box& box) { return box.readyToClean(); }), this->boxes.end());
 
-	if (frameCounter % static_cast<int>(120 / this->countStageSpeed()) == 0) {
+	auto spawnFactor = static_cast<int>(120 / this->countStageSpeed());
+	if (this->frameCounter > 300 && this->frameCounter - lastFrameBoxWaveSpawn >= spawnFactor) {
 		this->generateBoxWave();
+		lastFrameBoxWaveSpawn = this->frameCounter;
 	}
 
-frameCounter++;
+	auto iter = std::find_if(this->texts.begin(), this->texts.end(), [](graphics::Text& text) { return text.getTag() == "scoreValue"; });
+	iter->setTextContent(std::to_string(this->frameCounter / 10) + "0");
+	if (this->frameCounter % 30 == 0) {
+		auto iter = std::find_if(this->texts.begin(), this->texts.end(), [](graphics::Text& text) { return text.getTag() == "test"; });
+		if (iter != this->texts.end()) {
+			iter->setFillColor(sf::Color(128 + rand() % 128, 128 + rand() % 128, 128 + rand() % 128, 255));
+		}
+	}
+
+	frameCounter++;
 }
 
 void Stage::render(sf::RenderWindow* window) {
@@ -159,6 +167,9 @@ void Stage::render(sf::RenderWindow* window) {
 			box.render(window);
 		}
 	}
+	for (auto& text : this->texts) {
+		window->draw(text.getText());
+	}
 }
 
 void Stage::addSprite(const std::string texturePath, const sf::Vector2f position, const float rotation, const sf::Vector2f scale) {
@@ -175,6 +186,15 @@ void Stage::addSprite(const std::string texturePath, const sf::Vector2f position
 	this->stableSprites[this->stableSprites.size() - 1].setPosition(position);
 	this->stableSprites[this->stableSprites.size() - 1].setRotation(rotation);
 	this->stableSprites[this->stableSprites.size() - 1].setScale(scale);
+}
+
+void Stage::addText(const std::string tag, const std::string text, const sf::Vector2f position) {
+	this->texts.push_back(graphics::Text(tag));
+	this->texts[this->texts.size() - 1].setTextContent(text);
+	this->texts[this->texts.size() - 1].setFont(font);
+	this->texts[this->texts.size() - 1].setPosition(position);
+	this->texts[this->texts.size() - 1].setFillColor(sf::Color(128 + rand() % 128, 128 + rand() % 128, 128 + rand() % 128, 255));
+	this->texts[this->texts.size() - 1].setCharacterSize(48);
 }
 
 }

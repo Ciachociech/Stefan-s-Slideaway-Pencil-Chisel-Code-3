@@ -32,7 +32,7 @@ int WindowInstance::loop() {
         stage.processInput(keyboardInput, joystickInput);
         stage.update();
 
-        this->window.clear(sf::Color(128, 128, 128, 255));
+        this->window.clear(sf::Color(0, 0, 0, 255));
         stage.render(&this->window);
         this->window.display();
     }

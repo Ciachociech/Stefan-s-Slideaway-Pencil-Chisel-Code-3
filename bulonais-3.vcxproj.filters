@@ -30,12 +30,54 @@
     <ClCompile Include="src\graphics\Sprite.cpp">
       <Filter>Pliki źródłowe\graphics</Filter>
     </ClCompile>
+    <ClCompile Include="src\game\Box.cpp">
+      <Filter>Pliki źródłowe</Filter>
+    </ClCompile>
+    <ClCompile Include="src\game\Stage.cpp">
+      <Filter>Pliki źródłowe</Filter>
+    </ClCompile>
+    <ClCompile Include="src\game\Stefan.cpp">
+      <Filter>Pliki źródłowe</Filter>
+    </ClCompile>
+    <ClCompile Include="src\window\JoystickInput.cpp">
+      <Filter>Pliki źródłowe</Filter>
+    </ClCompile>
+    <ClCompile Include="src\window\KeyboardInput.cpp">
+      <Filter>Pliki źródłowe</Filter>
+    </ClCompile>
+    <ClCompile Include="src\window\WindowInstance.cpp">
+      <Filter>Pliki źródłowe</Filter>
+    </ClCompile>
+    <ClCompile Include="src\graphics\Text.cpp">
+      <Filter>Pliki źródłowe\graphics</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\graphics\Texture.h">
       <Filter>Pliki nagłówkowe\graphics</Filter>
     </ClInclude>
     <ClInclude Include="include\graphics\Sprite.h">
+      <Filter>Pliki nagłówkowe\graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="include\game\Box.h">
+      <Filter>Pliki nagłówkowe</Filter>
+    </ClInclude>
+    <ClInclude Include="include\game\Stage.h">
+      <Filter>Pliki nagłówkowe</Filter>
+    </ClInclude>
+    <ClInclude Include="include\game\Stefan.h">
+      <Filter>Pliki nagłówkowe</Filter>
+    </ClInclude>
+    <ClInclude Include="include\window\JoystickInput.h">
+      <Filter>Pliki nagłówkowe</Filter>
+    </ClInclude>
+    <ClInclude Include="include\window\KeyboardInput.h">
+      <Filter>Pliki nagłówkowe</Filter>
+    </ClInclude>
+    <ClInclude Include="include\window\WindowInstance.h">
+      <Filter>Pliki nagłówkowe</Filter>
+    </ClInclude>
+    <ClInclude Include="include\graphics\Text.h">
       <Filter>Pliki nagłówkowe\graphics</Filter>
     </ClInclude>
   </ItemGroup>
