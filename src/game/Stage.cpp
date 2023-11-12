@@ -15,6 +15,7 @@ void Stage::loadTextures() {
 	this->textures.push_back(graphics::Texture("assets/sprites/box-down.png"));
 	this->textures.push_back(graphics::Texture("assets/sprites/box-up.png"));
 	this->textures.push_back(graphics::Texture("assets/sprites/stefan-head.png"));
+	this->textures.push_back(graphics::Texture("assets/sprites/gameover-frame.png"));
 }
 
 float Stage::countStageSpeed() {
@@ -84,6 +85,7 @@ Stage::Stage() : stableSprites(), stefan(), frameCounter(0), font() {
 	this->addSprite("rouletteCauliflower2", "assets/sprites/cauliflower.png", sf::Vector2f(580.f, 240.f), 0.f, sf::Vector2f(1.f, 1.f));
 	this->addSprite("rouletteCauliflower3", "assets/sprites/cauliflower.png", sf::Vector2f(580.f, 280.f), 0.f, sf::Vector2f(1.f, 1.f));
 	this->addSprite("life", "assets/sprites/stefan-head.png", sf::Vector2f(1082.f, 64.f), 0.f, sf::Vector2f(1.5f, 1.5f));
+	this->addSprite("gameoverFrame", "assets/sprites/gameover-frame.png", sf::Vector2f(406.f, 240.f), 0.f, sf::Vector2f(1.f, 1.f));
 
 	srand(time(NULL));
 
@@ -93,14 +95,21 @@ Stage::Stage() : stableSprites(), stefan(), frameCounter(0), font() {
 	this->addText("scoreValue", "0", sf::Vector2f(552.f, 64.f));
 	this->addText("healthTitle", "Lifes:", sf::Vector2f(1010.f, 8.f));
 	this->addText("powerUp", "Power-up: none", sf::Vector2f(552.f, 120.f));
+	this->addText("gameoverTitle", "GAME OVER!", sf::Vector2f(424.f, 242.f));
+	this->texts[this->texts.size() - 1].setCharacterSize(96);
+	this->addText("gameoverAddText1", "press any button", sf::Vector2f(478.f, 344.f));
+	this->addText("gameoverAddText2", "to quit the game", sf::Vector2f(483.f, 400.f));
 }
 
 void Stage::processInput(const std::vector<window::PressedKey>& keyboardInput, const std::vector<window::PressedButton>& joystickInput) {
 	stefan.processInput(keyboardInput, joystickInput);
+	if (this->stefan.getHealth() <= 0 && keyboardInput.size() != 0) { this->readyToQuit = true; }
 }
 
 bool Stage::update() {
-	if (stefan.getHealth() <= 0) { return false; }
+	if (stefan.getHealth() <= 0) { 
+		return !this->readyToQuit; 
+	}
 	stefan.update();
 
 	for (auto& box : this->boxes) {
@@ -159,7 +168,7 @@ bool Stage::update() {
 
 void Stage::render(sf::RenderWindow* window) {
 	for (auto sprite : this->stableSprites) {
-		window->draw(sprite.getSprite());
+		if (sprite.getTag().substr(0, 8) != "gameover" || this->stefan.getHealth() <= 0) { window->draw(sprite.getSprite()); }
 	}
 	auto iter = std::find_if(this->stableSprites.begin(), this->stableSprites.end(), [](graphics::Sprite& sprite) { return sprite.getTag() == "life"; });
 	for (auto it = stefan.getHealth(); it > 1; --it) {
@@ -169,20 +178,22 @@ void Stage::render(sf::RenderWindow* window) {
 	if (stefan.getHealth() > 0) { iter->move(sf::Vector2f(60 * (stefan.getHealth() - 1), 0)); }
 	else { iter->move(sf::Vector2f(2137, 0)); }
 
-	for (auto& box : this->boxes) {
-		if (box.getType() == BoxType::passUp) {
-			box.render(window);
+	if (this->stefan.getHealth() >= 0) {
+		for (auto& box : this->boxes) {
+			if (box.getType() == BoxType::passUp) {
+				box.render(window);
+			}
 		}
-	}
-	stefan.render(window);
-	for (auto& box : this->boxes) {
-		if (box.getType() != BoxType::passUp) {
-			box.render(window);
+		stefan.render(window);
+		for (auto& box : this->boxes) {
+			if (box.getType() != BoxType::passUp) {
+				box.render(window);
+			}
 		}
 	}
 
 	for (auto& text : this->texts) {
-		window->draw(text.getText());
+		if (text.getTag().substr(0, 8) != "gameover" || this->stefan.getHealth() <= 0) { window->draw(text.getText()); }
 	}
 }
 

@@ -11,9 +11,12 @@
 
 namespace window {
 
+enum class ProgramState { titlescreen, stage };
+
 class WindowInstance {
 private:
 	sf::RenderWindow window;
+	ProgramState state;
 
 	//JoystickInput joystick;	// TODO: fix
 	KeyboardInput keyboard;

@@ -5,7 +5,7 @@
 
 namespace window {
 
-enum class PressedKey { left, right, up, down, space, shift, control };
+enum class PressedKey { left, right, up, down, space, shift, control, any };
 
 class KeyboardInput {
 public:
