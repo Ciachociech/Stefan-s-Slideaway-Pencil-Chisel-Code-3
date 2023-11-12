@@ -90,7 +90,6 @@ Stage::Stage() : stableSprites(), stefan(), frameCounter(0), font() {
 	srand(time(NULL));
 
 	this->font.loadFromFile("assets/fonts/NerkoOne-Regular.ttf");
-	this->addText("test", "HELLO WORLD!", sf::Vector2f(600.f, 200.f));
 	this->addText("scoreTitle", "Score:", sf::Vector2f(552.f, 8.f));
 	this->addText("scoreValue", "0", sf::Vector2f(552.f, 64.f));
 	this->addText("healthTitle", "Lifes:", sf::Vector2f(1010.f, 8.f));
@@ -154,13 +153,6 @@ bool Stage::update() {
 
 	auto iter = std::find_if(this->texts.begin(), this->texts.end(), [](graphics::Text& text) { return text.getTag() == "scoreValue"; });
 	iter->setTextContent(std::to_string(this->frameCounter / 10) + "0");
-	if (this->frameCounter % 30 == 0) {
-		auto iter = std::find_if(this->texts.begin(), this->texts.end(), [](graphics::Text& text) { return text.getTag() == "test"; });
-		if (iter != this->texts.end()) {
-			iter->setFillColor(sf::Color(128 + rand() % 128, 128 + rand() % 128, 128 + rand() % 128, 255));
-		}
-	}
-
 	frameCounter++;
 
 	return true;

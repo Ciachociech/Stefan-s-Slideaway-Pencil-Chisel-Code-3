@@ -6,6 +6,7 @@
 #include <SFML/Graphics.hpp>
 
 #include <game/Stage.h>
+#include <game/Titlescreen.h>
 #include <window/JoystickInput.h>
 #include <window/KeyboardInput.h>
 
@@ -22,6 +23,7 @@ private:
 	KeyboardInput keyboard;
 
 	game::Stage stage;
+	game::Titlescreen titlescreen;
 	int waitFrames = 0;
 public:
 	WindowInstance(int width, int height, std::string name);
