@@ -12,7 +12,7 @@ constexpr float maxVelocity = 10.f;
 
 }
 
-Stefan::Stefan() : texture("assets/sprites/bulonais.png"), sprite(), velocity(), height(0), health(3) {
+Stefan::Stefan() : texture("assets/sprites/bulonais.png"), sprite("stefan"), velocity(), height(0), health(3), blinkingFrames(99) {
 	this->sprite.setTexture(texture.getTexture());
 	this->sprite.setPosition(sf::Vector2f(260, 32));
 	this->sprite.setOriginCenter();
@@ -88,9 +88,13 @@ void Stefan::update() {
 	}
 
 	this->sprite.setScale(sf::Vector2f(1.0 + 0.001 * this->height, 1.0 + 0.001 * this->height));
+	if (this->blinkingFrames < 66) {
+		this->blinkingFrames++;
+	}
 }
 
 void Stefan::render(sf::RenderWindow* window) {
+	if (this->blinkingFrames < 55 && static_cast<int>(this->blinkingFrames / 5) % 2 == 0) { return; }
 	window->draw(this->sprite.getSprite());
 }
 
@@ -107,7 +111,9 @@ const int Stefan::getHealth() {
 }
 
 const void Stefan::damage(int value) {
-	this->health -= value;
+	if (this->blinkingFrames > 55) { this->health -= value; }
+	if (value > 0) { this->blinkingFrames = 0; }
+	if (value < 0 && this->health > 5) { this->health = 5; }
 }
 
 }

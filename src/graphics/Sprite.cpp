@@ -2,7 +2,7 @@
 
 namespace graphics {
 
-Sprite::Sprite() : sprite() {}
+Sprite::Sprite(const std::string tag) : sprite(), tag(tag) {}
 
 void Sprite::setTexture(const sf::Texture& texture) {
 	this->sprite.setTexture(texture);
@@ -54,6 +54,10 @@ void Sprite::setOriginCenter() {
 
 const sf::Sprite& Sprite::getSprite() {
 	return this->sprite;
+}
+
+const std::string Sprite::getTag() {
+	return this->tag;
 }
 
 }

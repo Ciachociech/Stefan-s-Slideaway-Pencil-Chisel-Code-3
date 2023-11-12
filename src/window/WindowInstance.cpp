@@ -30,7 +30,11 @@ int WindowInstance::loop() {
         }
 
         stage.processInput(keyboardInput, joystickInput);
-        stage.update();
+        if (!stage.update()) {
+            if (waitFrames++ > 300) {
+                this->window.close();
+            }
+        }
 
         this->window.clear(sf::Color(0, 0, 0, 255));
         stage.render(&this->window);

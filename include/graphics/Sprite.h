@@ -8,8 +8,9 @@ namespace graphics {
 class Sprite {
 private:
 	sf::Sprite sprite;
+	std::string tag;
 public:
-	Sprite();
+	Sprite(const std::string tag);
 
 	void setTexture(const sf::Texture& texture);
 	void setTexture(const sf::Texture& texture, const sf::IntRect textureRect);
@@ -24,6 +25,7 @@ public:
 	void setOriginCenter();
 
 	const sf::Sprite& getSprite();
+	const std::string getTag();
 };
 
 }

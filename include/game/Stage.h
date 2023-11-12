@@ -27,13 +27,13 @@ private:
 	float countStageSpeed();
 
 	void generateBoxWave();
-	void addSprite(const std::string texturePath, const sf::Vector2f position, const float rotation, const sf::Vector2f scale);
+	void addSprite(const std::string tag, const std::string texturePath, const sf::Vector2f position, const float rotation, const sf::Vector2f scale);
 	void addText(const std::string tag, const std::string text, const sf::Vector2f position);
 public:
 	Stage();
 
 	void processInput(const std::vector<window::PressedKey>& keyboardInput, const std::vector<window::PressedButton>& joystickInput);
-	void update();
+	bool update();
 	void render(sf::RenderWindow* window);
 };
 
