@@ -16,6 +16,9 @@ void Stage::loadTextures() {
 	this->textures.push_back(graphics::Texture("assets/sprites/box-up.png"));
 	this->textures.push_back(graphics::Texture("assets/sprites/stefan-head.png"));
 	this->textures.push_back(graphics::Texture("assets/sprites/gameover-frame.png"));
+	this->textures.push_back(graphics::Texture("assets/sprites/roulette-slots.png"));
+	this->textures.push_back(graphics::Texture("assets/sprites/white.png"));
+	this->textures.push_back(graphics::Texture("assets/sprites/stefan-head2.png"));
 }
 
 float Stage::countStageSpeed() {
@@ -74,17 +77,22 @@ void Stage::generateBoxWave() {
 Stage::Stage() : stableSprites(), stefan(), frameCounter(0), font(), sound() {
 	this->loadTextures();
 
+	this->addSprite("whiteRect", "assets/sprites/white.png", sf::Vector2f(645.f, 178.f), 0.f, sf::Vector2f(1.f, 1.f));
 	this->addSprite("stage", "assets/sprites/stage.png", sf::Vector2f(100.f, 0.f), 0.f, sf::Vector2f(2.f, 2.f));
-	this->addSprite("rouletteApple1", "assets/sprites/apple.png", sf::Vector2f(500.f, 200.f), 0.f, sf::Vector2f(1.f, 1.f));
-	this->addSprite("rouletteApple2", "assets/sprites/apple.png", sf::Vector2f(500.f, 240.f), 0.f, sf::Vector2f(1.f, 1.f));
-	this->addSprite("rouletteApple3", "assets/sprites/apple.png", sf::Vector2f(500.f, 280.f), 0.f, sf::Vector2f(1.f, 1.f));
-	this->addSprite("rouletteCarrot1", "assets/sprites/carrot.png", sf::Vector2f(540.f, 200.f), 0.f, sf::Vector2f(1.f, 1.f));
-	this->addSprite("rouletteCarrot2", "assets/sprites/carrot.png", sf::Vector2f(540.f, 240.f), 0.f, sf::Vector2f(1.f, 1.f));
-	this->addSprite("rouletteCarrot3", "assets/sprites/carrot.png", sf::Vector2f(540.f, 280.f), 0.f, sf::Vector2f(1.f, 1.f));
-	this->addSprite("rouletteCauliflower1", "assets/sprites/cauliflower.png", sf::Vector2f(580.f, 200.f), 0.f, sf::Vector2f(1.f, 1.f));
-	this->addSprite("rouletteCauliflower2", "assets/sprites/cauliflower.png", sf::Vector2f(580.f, 240.f), 0.f, sf::Vector2f(1.f, 1.f));
-	this->addSprite("rouletteCauliflower3", "assets/sprites/cauliflower.png", sf::Vector2f(580.f, 280.f), 0.f, sf::Vector2f(1.f, 1.f));
+	this->addSprite("rouletteApple1", "assets/sprites/apple.png", sf::Vector2f(663.f, 707.f), 0.f, sf::Vector2f(4.f, 4.f));
+	this->addSprite("rouletteApple2", "assets/sprites/apple.png", sf::Vector2f(791.f, 323.f), 0.f, sf::Vector2f(4.f, 4.f));
+	this->addSprite("rouletteApple3", "assets/sprites/apple.png", sf::Vector2f(919.f, 451.f), 0.f, sf::Vector2f(4.f, 4.f));
+	this->addSprite("rouletteCarrot1", "assets/sprites/carrot.png", sf::Vector2f(663.f, 323.f), 0.f, sf::Vector2f(4.f, 4.f));
+	this->addSprite("rouletteCarrot2", "assets/sprites/carrot.png", sf::Vector2f(791.f, 451.f), 0.f, sf::Vector2f(4.f, 4.f));
+	this->addSprite("rouletteCarrot3", "assets/sprites/carrot.png", sf::Vector2f(919.f, 579.f), 0.f, sf::Vector2f(4.f, 4.f));
+	this->addSprite("rouletteCauliflower1", "assets/sprites/cauliflower.png", sf::Vector2f(663.f, 451.f), 0.f, sf::Vector2f(4.f, 4.f));
+	this->addSprite("rouletteCauliflower2", "assets/sprites/cauliflower.png", sf::Vector2f(791.f, 579.f), 0.f, sf::Vector2f(4.f, 4.f));
+	this->addSprite("rouletteCauliflower3", "assets/sprites/cauliflower.png", sf::Vector2f(919.f, 707.f), 0.f, sf::Vector2f(4.f, 4.f));
+	this->addSprite("rouletteHead1", "assets/sprites/stefan-head2.png", sf::Vector2f(663.f, 579.f), 0.f, sf::Vector2f(4.f, 4.f));
+	this->addSprite("rouletteHead2", "assets/sprites/stefan-head2.png", sf::Vector2f(791.f, 707.f), 0.f, sf::Vector2f(4.f, 4.f));
+	this->addSprite("rouletteHead3", "assets/sprites/stefan-head2.png", sf::Vector2f(919.f, 323.f), 0.f, sf::Vector2f(4.f, 4.f));
 	this->addSprite("life", "assets/sprites/stefan-head.png", sf::Vector2f(1082.f, 64.f), 0.f, sf::Vector2f(1.5f, 1.5f));
+	this->addSprite("roulettEBase", "assets/sprites/roulette-slots.png", sf::Vector2f(645.f, 178.f), 0.f, sf::Vector2f(1.f, 1.f));
 	this->addSprite("gameoverFrame", "assets/sprites/gameover-frame.png", sf::Vector2f(406.f, 240.f), 0.f, sf::Vector2f(1.f, 1.f));
 
 	srand(time(NULL));
@@ -93,7 +101,8 @@ Stage::Stage() : stableSprites(), stefan(), frameCounter(0), font(), sound() {
 	this->addText("scoreTitle", "Score:", sf::Vector2f(552.f, 8.f));
 	this->addText("scoreValue", "0", sf::Vector2f(552.f, 64.f));
 	this->addText("healthTitle", "Lifes:", sf::Vector2f(1010.f, 8.f));
-	this->addText("powerUp", "Power-up: none", sf::Vector2f(552.f, 120.f));
+	//this->addText("powerUp", "Power-up: none", sf::Vector2f(552.f, 120.f));
+	this->addText("pullCounter", "Available pulls: 0", sf::Vector2f(552.f, 120.f));
 	this->addText("gameoverTitle", "GAME OVER!", sf::Vector2f(424.f, 242.f));
 	this->texts[this->texts.size() - 1].setCharacterSize(96);
 	this->addText("gameoverAddText1", "press any button", sf::Vector2f(478.f, 344.f));
@@ -106,6 +115,22 @@ Stage::Stage() : stableSprites(), stefan(), frameCounter(0), font(), sound() {
 
 void Stage::processInput(const std::vector<window::PressedKey>& keyboardInput, const std::vector<window::PressedButton>& joystickInput) {
 	stefan.processInput(keyboardInput, joystickInput);
+	if (this->roulettePulls > 0 && this->isSlotLocking == -1 && std::find(keyboardInput.begin(), keyboardInput.end(), window::PressedKey::control) != keyboardInput.end() || std::find(joystickInput.begin(), joystickInput.end(), window::PressedButton::down) != joystickInput.end()) {
+		this->sound.setBuffer(this->bufferOption);
+		this->sound.play();
+		
+		for (auto slot : this->rouletteSlotsLocked) {
+			this->isSlotLocking += 1;
+			if (!slot) {
+				slot = true;
+				break;
+			}
+		}
+
+		this->roulettePulls -= 1;
+		auto iter = std::find_if(this->texts.begin(), this->texts.end(), [](graphics::Text& text) { return text.getTag() == "pullCounter"; });
+		iter->setTextContent("Available pulls: " + std::to_string(this->roulettePulls));
+	}
 	if (this->stefan.getHealth() > 0 && this->stefan.getHeight() == 0 && std::find_if(keyboardInput.begin(), keyboardInput.end(), [](const auto& input) { return input == window::PressedKey::space; }) != keyboardInput.end()) {
 		this->sound.setBuffer(this->bufferJump);
 		this->sound.play();
@@ -166,7 +191,80 @@ bool Stage::update() {
 	}
 
 	auto iter = std::find_if(this->texts.begin(), this->texts.end(), [](graphics::Text& text) { return text.getTag() == "scoreValue"; });
-	iter->setTextContent(std::to_string(this->frameCounter / 10) + "0");
+	iter->setTextContent(std::to_string(static_cast<int>(this->scoreMultiplier * this->frameCounter / 10)) + "0");
+
+	for (auto& sprite : this->stableSprites) {
+		if (sprite.getTag().substr(0, 8) == "roulette") {
+			int slot = std::stoi(sprite.getTag().substr(sprite.getTag().length() - 1)) - 1;
+			if (!this->rouletteSlotsLocked[slot]) {
+				sprite.move(sf::Vector2f(0, 2 * static_cast<int>(-3 * this->countStageSpeed())));
+			} else if (static_cast<int>(sprite.getSprite().getPosition().y) % 128 != 9) {
+				sprite.move(sf::Vector2f(0, -2));
+			} else if (this->isSlotLocking == slot) {
+				this->isSlotLocking = -1;
+			}
+			if (sprite.getSprite().getPosition().y <= 195) {
+				sprite.move(sf::Vector2f(0, 512));
+			}
+		}
+	}
+
+	if (this->frameCounter % 600 == 599) {
+		this->roulettePulls++;
+		auto iter = std::find_if(this->texts.begin(), this->texts.end(), [](graphics::Text& text) { return text.getTag() == "pullCounter"; });
+		iter->setTextContent("Available pulls: " + std::to_string(this->roulettePulls));
+	}
+
+	bool allSlotsLocked = this->isSlotLocking != -1;
+	for (auto slot : this->rouletteSlotsLocked) {
+		allSlotsLocked &= slot;
+	}
+	if (allSlotsLocked) {
+		auto iter = std::find_if(this->stableSprites.begin(), this->stableSprites.end(), [](graphics::Sprite& sprite) { return sprite.getTag() == "rouletteApple1"; });
+		if (iter->getSprite().getPosition().y > 372 && iter->getSprite().getPosition().y < 402) {
+			auto iter2 = std::find_if(this->stableSprites.begin(), this->stableSprites.end(), [](graphics::Sprite& sprite) { return sprite.getTag() == "rouletteApple2"; });
+			auto iter3 = std::find_if(this->stableSprites.begin(), this->stableSprites.end(), [](graphics::Sprite& sprite) { return sprite.getTag() == "rouletteApple3"; });
+			if (iter2->getSprite().getPosition().y > 372 && iter2->getSprite().getPosition().y < 402 && iter3->getSprite().getPosition().y > 332 && iter3->getSprite().getPosition().y < 442) {
+				this->stefan.damage(-1);
+				this->scoreMultiplier *= 1.07;
+			}
+		}
+
+		iter = std::find_if(this->stableSprites.begin(), this->stableSprites.end(), [](graphics::Sprite& sprite) { return sprite.getTag() == "rouletteCarrot1"; });
+		if (iter->getSprite().getPosition().y > 372 && iter->getSprite().getPosition().y < 402) {
+			auto iter2 = std::find_if(this->stableSprites.begin(), this->stableSprites.end(), [](graphics::Sprite& sprite) { return sprite.getTag() == "rouletteCarrot2"; });
+			auto iter3 = std::find_if(this->stableSprites.begin(), this->stableSprites.end(), [](graphics::Sprite& sprite) { return sprite.getTag() == "rouletteCarrot3"; });
+			if (iter2->getSprite().getPosition().y > 372 && iter2->getSprite().getPosition().y < 402 && iter3->getSprite().getPosition().y > 332 && iter3->getSprite().getPosition().y < 442) {
+				this->stefan.damage(-1);
+				this->scoreMultiplier *= 1.07;
+			}
+		}
+
+		iter = std::find_if(this->stableSprites.begin(), this->stableSprites.end(), [](graphics::Sprite& sprite) { return sprite.getTag() == "rouletteCauliflower1"; });
+		if (iter->getSprite().getPosition().y > 372 && iter->getSprite().getPosition().y < 402) {
+			auto iter2 = std::find_if(this->stableSprites.begin(), this->stableSprites.end(), [](graphics::Sprite& sprite) { return sprite.getTag() == "rouletteCauliflower2"; });
+			auto iter3 = std::find_if(this->stableSprites.begin(), this->stableSprites.end(), [](graphics::Sprite& sprite) { return sprite.getTag() == "rouletteCauliflower3"; });
+			if (iter2->getSprite().getPosition().y > 372 && iter2->getSprite().getPosition().y < 402 && iter3->getSprite().getPosition().y > 332 && iter3->getSprite().getPosition().y < 442) {
+				this->stefan.damage(-1);
+				this->scoreMultiplier *= 1.07;
+			}
+		}
+
+		iter = std::find_if(this->stableSprites.begin(), this->stableSprites.end(), [](graphics::Sprite& sprite) { return sprite.getTag() == "rouletteHead1"; });
+		if (iter->getSprite().getPosition().y > 372 && iter->getSprite().getPosition().y < 402) {
+			auto iter2 = std::find_if(this->stableSprites.begin(), this->stableSprites.end(), [](graphics::Sprite& sprite) { return sprite.getTag() == "rouletteHead2"; });
+			auto iter3 = std::find_if(this->stableSprites.begin(), this->stableSprites.end(), [](graphics::Sprite& sprite) { return sprite.getTag() == "rouletteHead3"; });
+			if (iter2->getSprite().getPosition().y > 372 && iter2->getSprite().getPosition().y < 402 && iter3->getSprite().getPosition().y > 332 && iter3->getSprite().getPosition().y < 442) {
+				this->stefan.damage(-1);
+				this->scoreMultiplier *= 1.12;
+			}
+		}
+
+		this->rouletteSlotsLocked = { false, false, false };
+		this->scoreMultiplier *= 1.03;
+		this->isSlotLocking = -1;
+	}
+
 	frameCounter++;
 
 	return true;
@@ -184,7 +282,7 @@ void Stage::render(sf::RenderWindow* window) {
 	if (stefan.getHealth() > 0) { iter->move(sf::Vector2f(60 * (stefan.getHealth() - 1), 0)); }
 	else { iter->move(sf::Vector2f(2137, 0)); }
 
-	if (this->stefan.getHealth() >= 0) {
+	if (this->stefan.getHealth() > 0) {
 		for (auto& box : this->boxes) {
 			if (box.getType() == BoxType::passUp) {
 				box.render(window);

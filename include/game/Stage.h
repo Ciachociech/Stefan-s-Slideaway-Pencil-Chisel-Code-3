@@ -30,9 +30,14 @@ private:
 	sf::SoundBuffer bufferOption;
 	sf::Sound sound;
 
-	int frameCounter;
+	long int frameCounter;
 	int lastFrameBoxWaveSpawn;
 	bool readyToQuit = false;
+	float scoreMultiplier = 1.f;
+
+	std::vector<bool> rouletteSlotsLocked = { false, false, false };
+	int isSlotLocking = -1;
+	int roulettePulls = 0;
 
 	void loadTextures();
 	float countStageSpeed();
