@@ -16,6 +16,8 @@ void Stage::loadTextures() {
 	this->textures.push_back(graphics::Texture("assets/sprites/box-up.png"));
 	this->textures.push_back(graphics::Texture("assets/sprites/stefan-head.png"));
 	this->textures.push_back(graphics::Texture("assets/sprites/gameover-frame.png"));
+	this->textures.push_back(graphics::Texture("assets/sprites/roulette-slots.png"));
+	this->textures.push_back(graphics::Texture("assets/sprites/white.png"));
 }
 
 float Stage::countStageSpeed() {
@@ -74,18 +76,20 @@ void Stage::generateBoxWave() {
 Stage::Stage() : stableSprites(), stefan(), frameCounter(0), font(), sound() {
 	this->loadTextures();
 
+	this->addSprite("whiteRect", "assets/sprites/white.png", sf::Vector2f(645.f, 178.f), 0.f, sf::Vector2f(1.f, 1.f));
 	this->addSprite("stage", "assets/sprites/stage.png", sf::Vector2f(100.f, 0.f), 0.f, sf::Vector2f(2.f, 2.f));
-	this->addSprite("rouletteApple1", "assets/sprites/apple.png", sf::Vector2f(500.f, 200.f), 0.f, sf::Vector2f(1.f, 1.f));
-	this->addSprite("rouletteApple2", "assets/sprites/apple.png", sf::Vector2f(500.f, 240.f), 0.f, sf::Vector2f(1.f, 1.f));
-	this->addSprite("rouletteApple3", "assets/sprites/apple.png", sf::Vector2f(500.f, 280.f), 0.f, sf::Vector2f(1.f, 1.f));
-	this->addSprite("rouletteCarrot1", "assets/sprites/carrot.png", sf::Vector2f(540.f, 200.f), 0.f, sf::Vector2f(1.f, 1.f));
-	this->addSprite("rouletteCarrot2", "assets/sprites/carrot.png", sf::Vector2f(540.f, 240.f), 0.f, sf::Vector2f(1.f, 1.f));
-	this->addSprite("rouletteCarrot3", "assets/sprites/carrot.png", sf::Vector2f(540.f, 280.f), 0.f, sf::Vector2f(1.f, 1.f));
-	this->addSprite("rouletteCauliflower1", "assets/sprites/cauliflower.png", sf::Vector2f(580.f, 200.f), 0.f, sf::Vector2f(1.f, 1.f));
-	this->addSprite("rouletteCauliflower2", "assets/sprites/cauliflower.png", sf::Vector2f(580.f, 240.f), 0.f, sf::Vector2f(1.f, 1.f));
-	this->addSprite("rouletteCauliflower3", "assets/sprites/cauliflower.png", sf::Vector2f(580.f, 280.f), 0.f, sf::Vector2f(1.f, 1.f));
+	this->addSprite("rouletteApple1", "assets/sprites/apple.png", sf::Vector2f(663.f, 323.f), 0.f, sf::Vector2f(4.f, 4.f));
+	this->addSprite("rouletteApple2", "assets/sprites/apple.png", sf::Vector2f(791.f, 323.f), 0.f, sf::Vector2f(4.f, 4.f));
+	this->addSprite("rouletteApple3", "assets/sprites/apple.png", sf::Vector2f(919.f, 323.f), 0.f, sf::Vector2f(4.f, 4.f));
+	this->addSprite("rouletteCarrot1", "assets/sprites/carrot.png", sf::Vector2f(663.f, 451.f), 0.f, sf::Vector2f(4.f, 4.f));
+	this->addSprite("rouletteCarrot2", "assets/sprites/carrot.png", sf::Vector2f(791.f, 451.f), 0.f, sf::Vector2f(4.f, 4.f));
+	this->addSprite("rouletteCarrot3", "assets/sprites/carrot.png", sf::Vector2f(919.f, 451.f), 0.f, sf::Vector2f(4.f, 4.f));
+	this->addSprite("rouletteCauliflower1", "assets/sprites/cauliflower.png", sf::Vector2f(663.f, 579.f), 0.f, sf::Vector2f(4.f, 4.f));
+	this->addSprite("rouletteCauliflower2", "assets/sprites/cauliflower.png", sf::Vector2f(791.f, 579.f), 0.f, sf::Vector2f(4.f, 4.f));
+	this->addSprite("rouletteCauliflower3", "assets/sprites/cauliflower.png", sf::Vector2f(919.f, 579.f), 0.f, sf::Vector2f(4.f, 4.f));
 	this->addSprite("life", "assets/sprites/stefan-head.png", sf::Vector2f(1082.f, 64.f), 0.f, sf::Vector2f(1.5f, 1.5f));
 	this->addSprite("gameoverFrame", "assets/sprites/gameover-frame.png", sf::Vector2f(406.f, 240.f), 0.f, sf::Vector2f(1.f, 1.f));
+	this->addSprite("roulette", "assets/sprites/roulette-slots.png", sf::Vector2f(645.f, 178.f), 0.f, sf::Vector2f(1.f, 1.f));
 
 	srand(time(NULL));
 
@@ -169,6 +173,8 @@ bool Stage::update() {
 	iter->setTextContent(std::to_string(this->frameCounter / 10) + "0");
 	frameCounter++;
 
+
+
 	return true;
 }
 
@@ -184,7 +190,7 @@ void Stage::render(sf::RenderWindow* window) {
 	if (stefan.getHealth() > 0) { iter->move(sf::Vector2f(60 * (stefan.getHealth() - 1), 0)); }
 	else { iter->move(sf::Vector2f(2137, 0)); }
 
-	if (this->stefan.getHealth() >= 0) {
+	if (this->stefan.getHealth() > 0) {
 		for (auto& box : this->boxes) {
 			if (box.getType() == BoxType::passUp) {
 				box.render(window);
