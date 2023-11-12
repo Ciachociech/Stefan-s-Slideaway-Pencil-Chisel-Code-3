@@ -15,15 +15,17 @@ private:
 	graphics::Texture texture;
 	graphics::Sprite sprite;
 
-	sf::Vector2f velocity;
-	sf::Vector2f accuracy;
+	sf::Vector3f velocity;
+	sf::Vector3f acceleration;
+	float height;	// allow jump between 50-100
 public:
 	Stefan();
 
 	void processInput(const std::vector<window::PressedKey>& keyboardInput, const std::vector<window::PressedButton>& joystickInput);
 	void update();
-
 	void render(sf::RenderWindow* window);
+
+	const float getHeight();
 };
 
 }

@@ -68,4 +68,8 @@ const BoxType& Box::getType() {
 	return this->type;
 }
 
+const bool Box::readyToClean() {
+	return this->sprite.getSprite().getPosition().y <= -100.f;
+}
+
 }
