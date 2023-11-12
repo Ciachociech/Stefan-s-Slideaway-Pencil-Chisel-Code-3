@@ -18,6 +18,7 @@ private:
 	sf::Vector3f velocity;
 	sf::Vector3f acceleration;
 	float height;	// allow jump between 50-100
+	int health;
 public:
 	Stefan();
 
@@ -25,7 +26,10 @@ public:
 	void update();
 	void render(sf::RenderWindow* window);
 
+	const sf::FloatRect getHitbox();
 	const float getHeight();
+	const int getHealth();
+	const void damage(int value);
 };
 
 }
