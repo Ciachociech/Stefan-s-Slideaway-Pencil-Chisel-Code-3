@@ -7,7 +7,7 @@
 
 namespace window {
 	
-WindowInstance::WindowInstance(int width, int height, std::string name) : window(sf::VideoMode(width, height), name), stage() {}
+WindowInstance::WindowInstance(int width, int height, std::string name) : window(sf::VideoMode(width, height), name), stage(), state(ProgramState::titlescreen) {}
 
 int WindowInstance::loop() {
     while (this->window.isOpen())
@@ -29,15 +29,31 @@ int WindowInstance::loop() {
             }
         }
 
-        stage.processInput(keyboardInput, joystickInput);
-        if (!stage.update()) {
-            if (waitFrames++ > 300) {
-                this->window.close();
+        switch (this->state) {
+            case ProgramState::titlescreen: { 
+                if (this->waitFrames++ > 60) {
+                    this->state = ProgramState::stage;
+                    this->waitFrames = 0;
+                }
+
+                this->window.clear(sf::Color(0, 0, 0, 255));
+                break; 
             }
+            case ProgramState::stage: { 
+                stage.processInput(keyboardInput, joystickInput);
+                if (!stage.update()) {
+                    if (this->waitFrames++ > 120) {
+                        this->window.close();
+                    }
+                }
+
+                this->window.clear(sf::Color(0, 0, 0, 255));
+                stage.render(&this->window);
+                break; 
+            }
+
         }
 
-        this->window.clear(sf::Color(0, 0, 0, 255));
-        stage.render(&this->window);
         this->window.display();
     }
 

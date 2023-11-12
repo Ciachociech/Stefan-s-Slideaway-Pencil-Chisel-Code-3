@@ -22,6 +22,7 @@ private:
 
 	int frameCounter;
 	int lastFrameBoxWaveSpawn;
+	bool readyToQuit = false;
 
 	void loadTextures();
 	float countStageSpeed();

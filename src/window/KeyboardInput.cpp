@@ -29,6 +29,7 @@ std::vector<PressedKey> KeyboardInput::getInput() {
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Scan::LControl) || sf::Keyboard::isKeyPressed(sf::Keyboard::Scan::RControl) || sf::Keyboard::isKeyPressed(sf::Keyboard::Scan::Num0)) {
 		input.push_back(PressedKey::control);
 	}
+	input.push_back(PressedKey::any);
 
 	return input;
 }
