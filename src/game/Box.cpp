@@ -16,11 +16,11 @@ Box::Box(const sf::Vector2f position, const BoxType boxType, const sf::Texture& 
 	this->sprite.setTexture(texture);
 	this->sprite.setPosition(position);
 	
-	if (position.x == 4.f) { 
+	if (position.x == 104.f) { 
 		this->lane = BoxLane::left;
 		this->sprite.setScale(sf::Vector2f(62.f / halfUltimateSize, 62.f / halfUltimateSize));
 	}
-	else if (position.x == 224.f) { 
+	else if (position.x == 324.f) { 
 		this->lane = BoxLane::right; 
 		this->sprite.setScale(sf::Vector2f(62.f / halfUltimateSize, 62.f / halfUltimateSize));
 	}
@@ -46,7 +46,7 @@ void Box::update(float speed) {
 	switch (this->lane) {
 		case BoxLane::left: {
 			this->sprite.setScale(sf::Vector2f(factor / halfUltimateSize, factor / halfUltimateSize));
-			x += ((4.f - this->sprite.getSprite().getPosition().x) / 2 + 62.f - factor);
+			x += ((104.f - this->sprite.getSprite().getPosition().x) / 2 + 62.f - factor);
 			break;
 		}
 		case BoxLane::right: {

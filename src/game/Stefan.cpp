@@ -14,7 +14,7 @@ constexpr float maxVelocity = 10.f;
 
 Stefan::Stefan() : texture("assets/sprites/bulonais.png"), sprite(), velocity(), height(0), health(3) {
 	this->sprite.setTexture(texture.getTexture());
-	this->sprite.setPosition(sf::Vector2f(160, 32));
+	this->sprite.setPosition(sf::Vector2f(260, 32));
 	this->sprite.setOriginCenter();
 }
 
@@ -59,11 +59,11 @@ void Stefan::update() {
 	this->sprite.move(movement);
 	this->height += this->velocity.z;
 
-	this->velocity.x *= 0.9;
+	this->velocity.x *= 0.95;
 	this->velocity.y *= 0.98;
 	this->velocity.z *= 0.8;
 
-	const sf::FloatRect movementRect = sf::FloatRect(32, 0, 288, 180);
+	const sf::FloatRect movementRect = sf::FloatRect(132, 0, 288, 180);
 	const sf::Vector2f actualPosition = this->sprite.getSprite().getPosition();
 	const sf::Vector2u textureSize = this->sprite.getSprite().getTexture()->getSize();
 	if (actualPosition.x - textureSize.x / 2 < movementRect.left) {
