@@ -19,6 +19,7 @@ private:
 	sf::Vector3f acceleration;
 	float height;	// allow jump between 50-100
 	int health;
+	int blinkingFrames;
 public:
 	Stefan();
 

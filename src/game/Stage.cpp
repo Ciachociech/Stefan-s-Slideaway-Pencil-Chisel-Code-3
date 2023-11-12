@@ -14,6 +14,7 @@ void Stage::loadTextures() {
 	this->textures.push_back(graphics::Texture("assets/sprites/box-avoid.png"));
 	this->textures.push_back(graphics::Texture("assets/sprites/box-down.png"));
 	this->textures.push_back(graphics::Texture("assets/sprites/box-up.png"));
+	this->textures.push_back(graphics::Texture("assets/sprites/stefan-head.png"));
 }
 
 float Stage::countStageSpeed() {
@@ -72,16 +73,17 @@ void Stage::generateBoxWave() {
 Stage::Stage() : stableSprites(), stefan(), frameCounter(0), font() {
 	this->loadTextures();
 
-	this->addSprite("assets/sprites/stage.png", sf::Vector2f(100.f, 0.f), 0.f, sf::Vector2f(2.f, 2.f));
-	this->addSprite("assets/sprites/apple.png", sf::Vector2f(500.f, 200.f), 0.f, sf::Vector2f(1.f, 1.f));
-	this->addSprite("assets/sprites/apple.png", sf::Vector2f(500.f, 240.f), 0.f, sf::Vector2f(1.f, 1.f));
-	this->addSprite("assets/sprites/apple.png", sf::Vector2f(500.f, 280.f), 0.f, sf::Vector2f(1.f, 1.f));
-	this->addSprite("assets/sprites/carrot.png", sf::Vector2f(540.f, 200.f), 0.f, sf::Vector2f(1.f, 1.f));
-	this->addSprite("assets/sprites/carrot.png", sf::Vector2f(540.f, 240.f), 0.f, sf::Vector2f(1.f, 1.f));
-	this->addSprite("assets/sprites/carrot.png", sf::Vector2f(540.f, 280.f), 0.f, sf::Vector2f(1.f, 1.f));
-	this->addSprite("assets/sprites/cauliflower.png", sf::Vector2f(580.f, 200.f), 0.f, sf::Vector2f(1.f, 1.f));
-	this->addSprite("assets/sprites/cauliflower.png", sf::Vector2f(580.f, 240.f), 0.f, sf::Vector2f(1.f, 1.f));
-	this->addSprite("assets/sprites/cauliflower.png", sf::Vector2f(580.f, 280.f), 0.f, sf::Vector2f(1.f, 1.f));
+	this->addSprite("stage", "assets/sprites/stage.png", sf::Vector2f(100.f, 0.f), 0.f, sf::Vector2f(2.f, 2.f));
+	this->addSprite("rouletteApple1", "assets/sprites/apple.png", sf::Vector2f(500.f, 200.f), 0.f, sf::Vector2f(1.f, 1.f));
+	this->addSprite("rouletteApple2", "assets/sprites/apple.png", sf::Vector2f(500.f, 240.f), 0.f, sf::Vector2f(1.f, 1.f));
+	this->addSprite("rouletteApple3", "assets/sprites/apple.png", sf::Vector2f(500.f, 280.f), 0.f, sf::Vector2f(1.f, 1.f));
+	this->addSprite("rouletteCarrot1", "assets/sprites/carrot.png", sf::Vector2f(540.f, 200.f), 0.f, sf::Vector2f(1.f, 1.f));
+	this->addSprite("rouletteCarrot2", "assets/sprites/carrot.png", sf::Vector2f(540.f, 240.f), 0.f, sf::Vector2f(1.f, 1.f));
+	this->addSprite("rouletteCarrot3", "assets/sprites/carrot.png", sf::Vector2f(540.f, 280.f), 0.f, sf::Vector2f(1.f, 1.f));
+	this->addSprite("rouletteCauliflower1", "assets/sprites/cauliflower.png", sf::Vector2f(580.f, 200.f), 0.f, sf::Vector2f(1.f, 1.f));
+	this->addSprite("rouletteCauliflower2", "assets/sprites/cauliflower.png", sf::Vector2f(580.f, 240.f), 0.f, sf::Vector2f(1.f, 1.f));
+	this->addSprite("rouletteCauliflower3", "assets/sprites/cauliflower.png", sf::Vector2f(580.f, 280.f), 0.f, sf::Vector2f(1.f, 1.f));
+	this->addSprite("life", "assets/sprites/stefan-head.png", sf::Vector2f(1082.f, 64.f), 0.f, sf::Vector2f(1.5f, 1.5f));
 
 	srand(time(NULL));
 
@@ -97,7 +99,8 @@ void Stage::processInput(const std::vector<window::PressedKey>& keyboardInput, c
 	stefan.processInput(keyboardInput, joystickInput);
 }
 
-void Stage::update() {
+bool Stage::update() {
+	if (stefan.getHealth() <= 0) { return false; }
 	stefan.update();
 
 	for (auto& box : this->boxes) {
@@ -150,12 +153,22 @@ void Stage::update() {
 	}
 
 	frameCounter++;
+
+	return true;
 }
 
 void Stage::render(sf::RenderWindow* window) {
 	for (auto sprite : this->stableSprites) {
 		window->draw(sprite.getSprite());
 	}
+	auto iter = std::find_if(this->stableSprites.begin(), this->stableSprites.end(), [](graphics::Sprite& sprite) { return sprite.getTag() == "life"; });
+	for (auto it = stefan.getHealth(); it > 1; --it) {
+		iter->move(sf::Vector2f(- 60, 0));
+		window->draw(iter->getSprite());
+	}
+	if (stefan.getHealth() > 0) { iter->move(sf::Vector2f(60 * (stefan.getHealth() - 1), 0)); }
+	else { iter->move(sf::Vector2f(2137, 0)); }
+
 	for (auto& box : this->boxes) {
 		if (box.getType() == BoxType::passUp) {
 			box.render(window);
@@ -167,14 +180,15 @@ void Stage::render(sf::RenderWindow* window) {
 			box.render(window);
 		}
 	}
+
 	for (auto& text : this->texts) {
 		window->draw(text.getText());
 	}
 }
 
-void Stage::addSprite(const std::string texturePath, const sf::Vector2f position, const float rotation, const sf::Vector2f scale) {
+void Stage::addSprite(const std::string tag, const std::string texturePath, const sf::Vector2f position, const float rotation, const sf::Vector2f scale) {
 	auto textureIterator = std::find_if(this->textures.begin(), this->textures.end(), [&texturePath](graphics::Texture& texture) { return texture.getPath() == texturePath; });
-	this->stableSprites.push_back(graphics::Sprite());
+	this->stableSprites.push_back(graphics::Sprite(tag));
 	if (textureIterator == this->textures.end()) {
 		this->textures.push_back(graphics::Texture(texturePath));
 		this->stableSprites[this->stableSprites.size() - 1].setTexture(this->textures[this->textures.size() - 1].getTexture());

@@ -19,6 +19,7 @@ private:
 	KeyboardInput keyboard;
 
 	game::Stage stage;
+	int waitFrames = 0;
 public:
 	WindowInstance(int width, int height, std::string name);
 

@@ -12,7 +12,7 @@ constexpr float halfUltimateSize = 48.f / 2;
 
 // Box health 2 for BoxType::up means box is not checked for collision, 1 is checked, but player jumped, 0 is checked and collide with player
 // for another box types 2 is equal to 1 and in case of collision, damaging is twice
-Box::Box(const sf::Vector2f position, const BoxType boxType, const sf::Texture& texture) : sprite(), type(boxType), health(2) {
+Box::Box(const sf::Vector2f position, const BoxType boxType, const sf::Texture& texture) : sprite("box"), type(boxType), health(2) {
 	this->sprite.setTexture(texture);
 	this->sprite.setPosition(position);
 	
