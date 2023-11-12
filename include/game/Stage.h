@@ -1,6 +1,7 @@
 #ifndef GAME_STAGE_H_
 #define GAME_STAGE_H_
 
+#include <game/Box.h>
 #include <game/Stefan.h>
 #include <graphics/Sprite.h>
 #include <graphics/Texture.h>
@@ -14,6 +15,7 @@ private:
 	std::vector<graphics::Sprite> stableSprites;
 	std::vector<graphics::Texture> textures;
 	Stefan stefan;
+	std::vector<Box> boxes;
 
 	void loadTextures();
 public:

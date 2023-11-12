@@ -13,6 +13,7 @@ constexpr float maxVelocity = 10.f;
 }
 
 Stefan::Stefan() : texture("assets/sprites/bulonais.png"), sprite(), velocity() {
+	this->sprite.setPosition(sf::Vector2f(160, 32));
 	this->sprite.setTexture(texture.getTexture());
 }
 
