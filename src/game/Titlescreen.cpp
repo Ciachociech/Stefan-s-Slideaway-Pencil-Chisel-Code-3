@@ -65,10 +65,16 @@ Titlescreen::Titlescreen() : textures(), texts(), font(), frameCounter(0) {
 	this->addText("storyTwoFour", "to keep slippery story", sf::Vector2f(935.f, 450.f));
 	this->texts[this->texts.size() - 1].setCharacterSize(24);
 
+	this->bufferOption.loadFromFile("assets/audio/option.wav");
+
 }
 
 void Titlescreen::processInput(const std::vector<window::PressedKey>& keyboardInput, const std::vector<window::PressedButton>& joystickInput) {
-	if (keyboardInput.size() != 0) { this->readyToQuit = true; }
+	if (keyboardInput.size() != 0) { 
+		this->sound.setBuffer(this->bufferOption);
+		this->sound.play();
+		this->readyToQuit = true; 
+	}
 }
 
 bool Titlescreen::update() {

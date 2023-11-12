@@ -1,6 +1,9 @@
 #ifndef GAME_STAGE_H_
 #define GAME_STAGE_H_
 
+#include <SFML/Audio.hpp>
+#include <SFML/Graphics.hpp>
+
 #include <game/Box.h>
 #include <game/Stefan.h>
 #include <graphics/Sprite.h>
@@ -21,6 +24,11 @@ private:
 	std::vector<Box> boxes;
 	std::vector<graphics::Text> texts;
 	sf::Font font;
+
+	sf::SoundBuffer bufferJump;
+	sf::SoundBuffer bufferHit;
+	sf::SoundBuffer bufferOption;
+	sf::Sound sound;
 
 	int frameCounter;
 	int lastFrameBoxWaveSpawn;
