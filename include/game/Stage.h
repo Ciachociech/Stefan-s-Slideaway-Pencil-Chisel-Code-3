@@ -16,8 +16,11 @@ private:
 	std::vector<graphics::Texture> textures;
 	Stefan stefan;
 	std::vector<Box> boxes;
+	int frameCounter;
 
 	void loadTextures();
+	float countStageSpeed();
+	void generateBoxWave();
 public:
 	Stage();
 
