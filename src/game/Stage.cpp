@@ -115,7 +115,7 @@ Stage::Stage() : stableSprites(), stefan(), frameCounter(0), font(), sound() {
 
 void Stage::processInput(const std::vector<window::PressedKey>& keyboardInput, const std::vector<window::PressedButton>& joystickInput) {
 	stefan.processInput(keyboardInput, joystickInput);
-	if (this->roulettePulls > 0 && this->isSlotLocking == -1 && std::find(keyboardInput.begin(), keyboardInput.end(), window::PressedKey::control) != keyboardInput.end() || std::find(joystickInput.begin(), joystickInput.end(), window::PressedButton::down) != joystickInput.end()) {
+	if (this->roulettePulls > 0 && this->isSlotLocking == -1 && (std::find(keyboardInput.begin(), keyboardInput.end(), window::PressedKey::control) != keyboardInput.end() || std::find(joystickInput.begin(), joystickInput.end(), window::PressedButton::A) != joystickInput.end())) {
 		this->sound.setBuffer(this->bufferOption);
 		this->sound.play();
 		

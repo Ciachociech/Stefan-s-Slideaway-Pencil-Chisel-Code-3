@@ -22,10 +22,10 @@ std::vector<PressedButton> JoystickInput::getInput() {
 		}
 	}
 	if (sf::Joystick::hasAxis(0, sf::Joystick::Y) || sf::Joystick::hasAxis(0, sf::Joystick::PovY)) {
-		if (sf::Joystick::getAxisPosition(0, sf::Joystick::Y) < -0.1 || sf::Joystick::getAxisPosition(0, sf::Joystick::PovY) < -0.1) {
+		if (sf::Joystick::getAxisPosition(0, sf::Joystick::Y) < -0.1 || sf::Joystick::getAxisPosition(0, sf::Joystick::PovY) > 0.1) {
 			input.push_back(PressedButton::up);
 		}
-		else if (sf::Joystick::getAxisPosition(0, sf::Joystick::Y) > 0.1 || sf::Joystick::getAxisPosition(0, sf::Joystick::PovY) > -0.1) {
+		else if (sf::Joystick::getAxisPosition(0, sf::Joystick::Y) > 0.1 || sf::Joystick::getAxisPosition(0, sf::Joystick::PovY) < -0.1) {
 			input.push_back(PressedButton::down);
 		}
 	}

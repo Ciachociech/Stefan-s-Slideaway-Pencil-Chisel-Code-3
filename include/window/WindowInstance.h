@@ -19,7 +19,7 @@ private:
 	sf::RenderWindow window;
 	ProgramState state;
 
-	//JoystickInput joystick;	// TODO: fix
+	JoystickInput joystick;
 	KeyboardInput keyboard;
 
 	game::Stage stage;

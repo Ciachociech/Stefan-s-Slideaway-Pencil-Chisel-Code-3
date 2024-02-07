@@ -70,7 +70,7 @@ Titlescreen::Titlescreen() : textures(), texts(), font(), frameCounter(0) {
 }
 
 void Titlescreen::processInput(const std::vector<window::PressedKey>& keyboardInput, const std::vector<window::PressedButton>& joystickInput) {
-	if (keyboardInput.size() != 0) { 
+	if (keyboardInput.size() != 0 || joystickInput.size() != 0) { 
 		this->sound.setBuffer(this->bufferOption);
 		this->sound.play();
 		this->readyToQuit = true; 
