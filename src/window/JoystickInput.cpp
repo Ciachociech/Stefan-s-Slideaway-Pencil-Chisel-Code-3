@@ -11,6 +11,7 @@ std::vector<PressedButton> JoystickInput::getInput() {
 		return {};
 	}
 
+	sf::Joystick::update();
 	std::vector<PressedButton> input;
 
 	if (sf::Joystick::hasAxis(0, sf::Joystick::X) || sf::Joystick::hasAxis(0, sf::Joystick::PovX)) {
