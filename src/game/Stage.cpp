@@ -115,7 +115,7 @@ Stage::Stage() : stableSprites(), stefan(), frameCounter(0), font(), sound() {
 
 void Stage::processInput(const std::vector<window::PressedKey>& keyboardInput, const std::vector<window::PressedButton>& joystickInput) {
 	stefan.processInput(keyboardInput, joystickInput);
-	if (this->roulettePulls > 0 && this->isSlotLocking == -1 && std::find(keyboardInput.begin(), keyboardInput.end(), window::PressedKey::control) != keyboardInput.end() || std::find(joystickInput.begin(), joystickInput.end(), window::PressedButton::down) != joystickInput.end()) {
+	if (this->roulettePulls > 0 && this->isSlotLocking == -1 && (std::find(keyboardInput.begin(), keyboardInput.end(), window::PressedKey::control) != keyboardInput.end() || std::find(joystickInput.begin(), joystickInput.end(), window::PressedButton::A) != joystickInput.end())) {
 		this->sound.setBuffer(this->bufferOption);
 		this->sound.play();
 		
@@ -131,11 +131,11 @@ void Stage::processInput(const std::vector<window::PressedKey>& keyboardInput, c
 		auto iter = std::find_if(this->texts.begin(), this->texts.end(), [](graphics::Text& text) { return text.getTag() == "pullCounter"; });
 		iter->setTextContent("Available pulls: " + std::to_string(this->roulettePulls));
 	}
-	if (this->stefan.getHealth() > 0 && this->stefan.getHeight() == 0 && std::find_if(keyboardInput.begin(), keyboardInput.end(), [](const auto& input) { return input == window::PressedKey::space; }) != keyboardInput.end()) {
+	if (this->stefan.getHealth() > 0 && this->stefan.getHeight() == 0 && (std::find(keyboardInput.begin(), keyboardInput.end(), window::PressedKey::control) != keyboardInput.end() || std::find(joystickInput.begin(), joystickInput.end(), window::PressedButton::Y) != joystickInput.end())) {
 		this->sound.setBuffer(this->bufferJump);
 		this->sound.play();
 	}
-	if (this->stefan.getHealth() <= 0 && keyboardInput.size() != 0) { 
+	if (this->stefan.getHealth() <= 0 && (keyboardInput.size() != 0 || joystickInput.size() != 0)) { 
 		this->sound.setBuffer(this->bufferOption);
 		this->sound.play();
 		this->readyToQuit = true; return; 

@@ -28,8 +28,8 @@ int WindowInstance::loop() {
             if (event.type == sf::Event::KeyPressed) {
                 keyboardInput = this->keyboard.getInput();
             }
-            if (event.type == sf::Event::JoystickButtonPressed) {
-                //joystickInput = this->joystick.getInput();
+            if (event.type == sf::Event::JoystickButtonPressed || event.type == sf::Event::JoystickMoved) {
+                joystickInput = this->joystick.getInput();
             }
         }
 
