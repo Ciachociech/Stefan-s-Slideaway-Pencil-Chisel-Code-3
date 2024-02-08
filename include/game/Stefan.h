@@ -20,6 +20,8 @@ private:
 	float height;	// allow jump between 50-100
 	int health;
 	int blinkingFrames;
+
+	int inputCooldown;
 public:
 	Stefan();
 

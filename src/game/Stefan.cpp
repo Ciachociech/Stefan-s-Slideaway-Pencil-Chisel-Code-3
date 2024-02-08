@@ -9,30 +9,38 @@ namespace game {
 namespace {
 
 constexpr float maxVelocity = 10.f;
+constexpr int maxInputCooldown = 8;
 
 }
 
-Stefan::Stefan() : texture("assets/sprites/bulonais.png"), sprite("stefan"), velocity(), height(0), health(3), blinkingFrames(99) {
+Stefan::Stefan() : texture("assets/sprites/bulonais.png"), sprite("stefan"), velocity(), height(0), health(3), blinkingFrames(99), inputCooldown(0) {
 	this->sprite.setTexture(texture.getTexture());
 	this->sprite.setPosition(sf::Vector2f(260, 32));
 	this->sprite.setOriginCenter();
 }
 
 void Stefan::processInput(const std::vector<window::PressedKey>& keyboardInput, const std::vector<window::PressedButton>& joystickInput) {
-	
+	if (this->getHeight() == 0, std::find(keyboardInput.begin(), keyboardInput.end(), window::PressedKey::space) != keyboardInput.end() || std::find(joystickInput.begin(), joystickInput.end(), window::PressedButton::Y) != joystickInput.end()) {
+		this->acceleration.z = 2;
+	}
+	if (inputCooldown != 0) {
+		inputCooldown--;
+		return;
+	}
 	if (std::find(keyboardInput.begin(), keyboardInput.end(), window::PressedKey::down) != keyboardInput.end() || std::find(joystickInput.begin(), joystickInput.end(), window::PressedButton::down) != joystickInput.end()) {
 		this->acceleration.y = 2;
+		inputCooldown = maxInputCooldown;
 	} else if (std::find(keyboardInput.begin(), keyboardInput.end(), window::PressedKey::up) != keyboardInput.end() || std::find(joystickInput.begin(), joystickInput.end(), window::PressedButton::up) != joystickInput.end()) {
 		this->acceleration.y = -2;
+		inputCooldown = maxInputCooldown;
 	}
 	if (std::find(keyboardInput.begin(), keyboardInput.end(), window::PressedKey::left) != keyboardInput.end() || std::find(joystickInput.begin(), joystickInput.end(), window::PressedButton::left) != joystickInput.end()) {
 		this->acceleration.x = -2;
+		inputCooldown = maxInputCooldown;
 	}
 	else if (std::find(keyboardInput.begin(), keyboardInput.end(), window::PressedKey::right) != keyboardInput.end() || std::find(joystickInput.begin(), joystickInput.end(), window::PressedButton::right) != joystickInput.end()) {
 		this->acceleration.x = 2;
-	}
-	if (this->getHeight() == 0, std::find(keyboardInput.begin(), keyboardInput.end(), window::PressedKey::space) != keyboardInput.end() || std::find(joystickInput.begin(), joystickInput.end(), window::PressedButton::Y) != joystickInput.end()) {
-		this->acceleration.z = 2;
+		inputCooldown = maxInputCooldown;
 	}
 }
 
